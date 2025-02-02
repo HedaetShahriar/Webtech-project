@@ -118,3 +118,21 @@ form p a {
 form p a:hover {
     text-decoration: underline;
 }
+.show-password {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.show-password input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.show-password label {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}

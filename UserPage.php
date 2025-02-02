@@ -20,18 +20,31 @@
                 <li><a href="">Services</a></li>
                 <li><a href="">Pages</a></li>
             </ul>
-            <div class="nav-buttons display-flex">
-                <div class="icon-circle">
-                    <i class="fa-solid fa-bell"></i>
+            <?php
+                session_start();
+                echo '
+                <div class="nav-buttons display-flex">
+                    <a href=""><button class="button"><i class="fa-solid fa-bell"></i></button></a>
+                    <a href=""><button class="button"><i class="fa-solid fa-user"></i></button></a>
+                    <form action="" method="post">
+                        <button type="submit" name="logout" class="button"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </form>
+                    <!-- <button class="button"><i class="fa-solid fa-user"></i></button> -->
                 </div>
-                <div class="icon-circle">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <div class="icon-circle">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </div>
-                
-            </div>
+                ';
+
+                // Check if the user is logged in
+                if (isset($_SESSION["uname"])) {
+                    if (isset($_POST['logout'])) {
+                        unset($_SESSION['uname']); // Unset the session variable
+                        unset($_SESSION['role']);
+                        header("Location: index.php"); // Redirect to homepage
+                        session_destroy(); // Destroy the session
+                        exit();
+                    }
+                }
+            ?>
+            
         </nav>
     </header>
 

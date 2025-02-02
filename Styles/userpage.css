@@ -56,23 +56,18 @@ html {
     font-size: 22px;
 }
 
-.icon-circle {
+/* Icon Styling */
+.button{
     width: 50px; 
     height: 50px;
     border: 2px solid #4c9164; 
     border-radius: 50%; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: white;
 }
-
-/* Icon Styling */
-.icon-circle i {
+.button i {
     font-size: 20px;
     color:#4c9164;
 }
-
 /* User Dashboard */
 .user-dashboard {
     display: flex;
