@@ -1,0 +1,185 @@
+/* Shared Styles */
+@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+.manrope-font {
+    font-family: "Manrope", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 18px;
+    font-style: normal;
+}
+html {
+    background-color: #FCF8F4;
+}
+*{
+    margin: 0;
+}
+.display-flex{
+    display: flex;
+}
+.btn-primary{
+    background-color:#EC744A ;
+    padding: 12px 35px;
+    font-weight: 700;
+    font-size: 15px;
+    color: white;
+    border:none;
+    border-radius: 25px;
+}
+.text-center{
+    text-align: center;
+}
+
+/* Nev Styles */
+.nav-bar{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-logo{
+    align-items: center;
+    font-weight: 700;
+    font-size: 20px;
+    gap: 15px;
+}
+.nav-links{
+    list-style: none;
+    gap: 40px;
+}
+.nav-links a{
+    text-decoration: none;
+    color: #000;
+}
+
+/* Banner Styles */
+.banner{
+    background: linear-gradient(to right, #FFB88C,#EC744A);
+}
+.banner-container{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 50px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+.banner-img{
+    max-width: 550px;
+    max-height: 450px;
+}
+.banner-title{
+    font-weight: 770;
+    font-size: 52px;
+}
+.banner-text{
+    max-width: 700px;
+}
+/* mission vision */
+.container{
+    max-width: 1280px;
+    margin: 0 auto;
+}
+.mission-container{
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+}
+.mission, .vision {
+    max-width: 400px;
+}
+.mission h2, .vision h2 {
+    color: #EC744A;
+    font-size: 2rem;
+}
+/* our values */
+.our-values{
+    margin: 50px 0;
+}
+.title{
+    font-size: 2rem;
+    font-weight: 700;
+}
+.values{
+    justify-content: space-between;
+    gap: 20px;
+}
+.value-box {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 30px 0;
+    text-align: center;
+}
+.value-box h3{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #EC744A;
+}
+.value-box img {
+    max-width: 60px;
+}
+
+/* Consultant */
+.Consultant{
+    margin-top: 30px;
+}
+.consultants-title{
+    font-weight: 700;
+    font-size: 40px;
+}
+.Consultant-content{
+    max-width: 1280px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.Consultant-content h3{
+    font-size: 12px;
+    padding: 10px;
+}
+.Consultant-img{
+    max-width: 280px;
+    border-radius: 50%;
+    margin-top: 20px;
+}
+.Consultant-title{
+    font-weight: 400;
+    font-size: 28px;
+}
+.Consultant1, .Consultant2, .Consultant3, .Consultant4{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Footer Styles */
+.footer-logo{
+    display: flex;
+    gap: 15px;
+    color: white;
+    align-items: center;
+
+}
+footer{
+    background: #222; 
+}
+.logo-footer{
+    width: 50px;
+    height: 50px; 
+}
+.footer-container{
+    display: flex;
+    max-width: 1280px;
+    align-items: center;  
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 40px 20px;
+    color: white;
+}
+.footer-description{
+    max-width: 350px;
+    color: white;
+}
+
