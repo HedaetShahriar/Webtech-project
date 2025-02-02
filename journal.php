@@ -15,10 +15,10 @@
                 <h1 class="nav-title">InnerEcho</h1>
             </div>
             <ul class="nav-links">
-                <li><a href="user_home.html">Home</a></li>
-                <li><a href="journal.html">My Journal</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="logout.html">Logout</a></li>
+                <li><a href="user_home.php">Home</a></li>
+                <li><a href="journal.php">My Journal</a></li>
+                <li><a href="profile.php">Profile</a></li>
+                <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
     </header>

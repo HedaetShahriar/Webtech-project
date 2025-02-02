@@ -75,53 +75,85 @@ html {
 
 /* Updated styles */
 .consultant-container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem;
 }
 
 .section-title {
-    font-size: 1.75rem;
+    font-size: 28px;
     color: #333;
-    margin-bottom: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
+.container{
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+/* form */
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+label {
+    font-weight: bold;
+}
+input, select, textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
 /* Requests Section */
 .requests-section {
-    margin-bottom: 3rem;
+    margin-bottom: 20px;
 }
 
 .request-card {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    margin: 1rem 0;
+    padding: 20px;
+    margin: 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+.no-request {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    font-size: 20px;
+    color: #ca2222;
+    text-align: center;
+}
 
 .request-info h3 {
-    font-size: 1.25rem;
+    font-size: 20px;
     color: #333;
-    margin-bottom: 0.5rem;
+    margin-bottom: 10px;
 }
 
 .request-info p {
-    font-size: 0.9rem;
+    font-size: 14px;
     color: #666;
 }
 
 .request-actions button {
-    margin-left: 1rem;
+    margin-left: 16px;
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+    font-size: 16px;
 }
 
 .accept-btn {

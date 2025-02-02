@@ -16,18 +16,17 @@
             </div>
             <ul class="nav-links display-flex ">
                 <li><a href="">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="">Services</a></li>
-                <li><a href="">Pages</a></li>
+                <li><a href="about.php">About Us</a></li>
+                <li><a href="therapist.php">Services</a></li>
             </ul>
-            <a href="login.html"><button class="btn-primary">Login</button></a>
+            <a href="login.php"><button class="btn-primary">Login</button></a>
         </nav>
         <section class="banner display-flex">
             <div class="banner-content">
                 <h1 class="banner-title">Healthy Minds, Happy <br>Lives <span style="color:#EC744A ;">Mental Heath</span><br> Consultancy</h1>
-                <p class="banner-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus consequatur esse officiis optio cum ducimus aliquam expedita veritatis et hic exercitationem quas illo voluptate nihil fuga nemo, facilis totam tempore?</p>
+                <p class="banner-description">InnerEcho offers personalized mental health support through online, family, and personal counseling, alongside tools like mood tracking and self-assessment to help you thrive. Begin your journey to emotional well-being with our secure, compassionate care today!</p>
                 <div>
-                    <a href="signup.html"><button class="btn-primary">Get Started</button></a>
+                    <a href="signup.php"><button class="btn-primary">Get Started</button></a>
                 </div>
             </div>
             <div class="banner-image">
@@ -42,7 +41,7 @@
                     <h2> Online Counseling</h2>
                     </div>
                     <p>Many therapists offer counselling online or by telephone, check their profile to learn more or use our online and telephone search.</p>
-                    <a href="therapist.html" class="therapist">Find therapist  <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="therapist.php" class="therapist">Find therapist  <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
                 <div class="type2">
                     <div class="head display-flex">
@@ -50,7 +49,7 @@
                         <h2> Family Counseling</h2>
                     </div>
                     <p>If you are in trouble and want our immediate help, simply pick up the phone and call us anytime you need help.</p>
-                    <a href="therapist.html" class="therapist">Find therapist  <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="therapist.php" class="therapist">Find therapist  <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
                 <div class="type3">
                     <div class="head display-flex">
@@ -58,7 +57,7 @@
                         <h2> Personal Counseling</h2>
                     </div>
                     <p>Psychological counseling, direct psychotherapy with leading psychologists at Medcaline.</p>
-                    <a href="therapist.html" class="therapist3">Find therapist  <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="therapist.php" class="therapist3">Find therapist  <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -69,7 +68,7 @@
             <div class="Consultant-content display-flex">
                 <div class="Consultant1">
                     <img src="images/team-1.jpg" alt="Consultant Image" class="Consultant-img">
-                    <h2 class="Consultant-title text-center">Dr. John Doe</h2>
+                    <h2 class="Consultant-title text-center">Dr. Sophia Reynolds</h2>
                     <h3 class="text-center"> Therapy Expert </h3>
                 </div>
                 <div class="Consultant2">
@@ -79,17 +78,17 @@
                 </div>
                 <div class="Consultant3">
                     <img src="images/team-3.png" alt="Consultant Image" class="Consultant-img">
-                    <h2 class="Consultant-title text-center" >Dr. John Doe</h2>
+                    <h2 class="Consultant-title text-center" >Dr. Olivia Bennett</h2>
                     <h3 class="text-center"> Therapy Expert </h3>
                 </div>
                 <div class="Consultant4">
                     <img src="images/team-4.jpg" alt="Consultant Image" class="Consultant-img">
-                    <h2 class="Consultant-title text-center">Dr. Jane Doe</h2>
+                    <h2 class="Consultant-title text-center">Dr. Daniel Foster</h2>
                     <h3 class="text-center"> Therapy Expert </h3>
                 </div>
             </div>
             <div class="text-center consultant_btn">
-                <a href="therapist.html"><button class="btn-primary">View More Consultant </button></a>
+                <a href="therapist.php"><button class="btn-primary">View More Consultant </button></a>
                 
             </div>
         </section>
@@ -100,17 +99,17 @@
                 <div class="card-1 text-center">
                     <img src="images/card1.png" alt="Card Image" class="card-img ">
                     <h2 class="card-title">Holistic approach</h2>
-                    <p class="card-description">Lorem ipsum dolor sit amet consectetur. Convallis est urna adipiscing fringilla nulla diam lorem non mauris.</p>
+                    <p class="card-description">Our holistic approach focuses on addressing mental, emotional, and physical well-being to create lasting, positive change in your life.</p>
                 </div>
                 <div class="card-2 text-center">
                     <img src="images/card2.png" alt="Card Image" class="card-img">
                     <h2 class="card-title">Expertise Team</h2>
-                    <p class="card-description">Lorem ipsum dolor sit amet consectetur. Convallis est urna adipiscing fringilla nulla diam lorem non mauris.</p>
+                    <p class="card-description">Our expert team of compassionate professionals is dedicated to providing personalized care and guidance for your mental well-being.</p>
                 </div>
                 <div class="card-3 text-center">
                     <img src="images/card3.png" alt="Card Image" class="card-img">
                     <h2 class="card-title">24/7 Support</h2>
-                    <p class="card-description">Lorem ipsum dolor sit amet consectetur. Convallis est urna adipiscing fringilla nulla diam lorem non mauris.</p>
+                    <p class="card-description">We provide 24/7 support to ensure that help is always available whenever you need it, offering constant care and guidance to prioritize your mental well-being.</p>
                 </div> 
             </div>
     </main>

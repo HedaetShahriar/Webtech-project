@@ -15,16 +15,16 @@
                 <h1 class="nav-title"> InnerEcho </h1>
             </div>
             <ul class="nav-links display-flex ">
-                <li><a href="adminDashboard.html">Home</a></li>
-                <li><a href="adminUserInfo.html">User</a></li>
-                <li><a href="adminConsultantInfo.html">Consultant</a></li>
+                <li><a href="adminDashboard.php">Home</a></li>
+                <li><a href="adminUserInfo.php">User</a></li>
+                <li><a href="adminConsultantInfo.php">Consultant</a></li>
             </ul>
             <div class="nav-buttons display-flex">
                 <div class="icon-circle">
-                    <a href="adminConsultantInfo.html"><i class="fa-solid fa-user"></i></a>
+                    <a href="adminConsultantInfo.php"><i class="fa-solid fa-user"></i></a>
                 </div>
                 <div class="icon-circle">
-                    <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i></a>
+                    <a href="login.php"><i class="fa-solid fa-right-from-bracket"></i></a>
                 </div>
                 
             </div>

@@ -31,7 +31,7 @@
                 <input type="password" id="password" name="password" placeholder="Enter your password">
 
                 <button type="submit">Sign Up</button>
-                <p>Already have an account? <a href="Login.html">Log in</a></p>
+                <p>Already have an account? <a href="Login.php">Log in</a></p>
             </form>
         </div>
     </div>
