@@ -100,16 +100,20 @@
                     <img src="images/card1.png" alt="Card Image" class="card-img ">
                     <h2 class="card-title">Holistic approach</h2>
                     <p class="card-description">Our holistic approach focuses on addressing mental, emotional, and physical well-being to create lasting, positive change in your life.</p>
+
                 </div>
                 <div class="card-2 text-center">
                     <img src="images/card2.png" alt="Card Image" class="card-img">
                     <h2 class="card-title">Expertise Team</h2>
                     <p class="card-description">Our expert team of compassionate professionals is dedicated to providing personalized care and guidance for your mental well-being.</p>
+
                 </div>
                 <div class="card-3 text-center">
                     <img src="images/card3.png" alt="Card Image" class="card-img">
                     <h2 class="card-title">24/7 Support</h2>
+
                     <p class="card-description">We provide 24/7 support to ensure that help is always available whenever you need it, offering constant care and guidance to prioritize your mental well-being.</p>
+
                 </div> 
             </div>
     </main>

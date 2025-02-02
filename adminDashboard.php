@@ -40,7 +40,6 @@
                         <h2>View Users</h2>
                         <p>View the list of the Users of the platform. View their details and expertise</p>
                         <a href="adminUserInfo.php"><button>View User</button></a>
-                        
                     </div>
                     <!-- Add User Card -->
                     <div class="admin-card">
@@ -60,7 +59,6 @@
                         <h2>Consultants</h2>
                         <p>View the list of the consultants of the platform. View their details and expertise.</p>
                         <a href="adminConsultantInfo.php"><button>View Consultants</button></a>
-                        
                     </div>
                     <!-- Remove Consultant Card -->
                     <div class="admin-card">

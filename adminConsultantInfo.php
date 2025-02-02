@@ -40,7 +40,6 @@
                         <h2>View Users</h2>
                         <p>View the list of the Users of the platform. View their details and expertise</p>
                         <a href="adminUserInfo.php"><button>View User</button></a>
-                        
                     </div>
                     <!-- Add User Card -->
                     <div class="admin-card">
