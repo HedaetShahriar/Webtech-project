@@ -25,7 +25,7 @@
                 <input type="password" id="password" name="password" placeholder="Enter password" required>
 
                 <button type="submit">Add Consultant</button>
-                <p><a href="adminDashboard.html">Back to Admin Panel</a></p>
+                <p><a href="adminDashboard.php">Back to Admin Panel</a></p>
             </form>
     </div>
     </main>

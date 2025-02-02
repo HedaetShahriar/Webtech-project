@@ -10,7 +10,7 @@
     <div class="container">
         <div class="form-section">
             <h1>Welcome Back!</h1>
-            <p>Don't have an account yet? <a href="signup.html">Sign Up</a></p>
+            <p>Don't have an account yet? <a href="signup.php">Sign Up</a></p>
             <form>
                 <input type="text" placeholder="Username" required>
                 <input type="password" placeholder="Password" required>
@@ -20,7 +20,7 @@
                     </label>
                     <a href="#">Forgot Password?</a>
                 </div>
-                <button type="submit" onclick="UserPage.html">Login</button>
+                <button type="submit" onclick="UserPage.php">Login</button>
                 <!-- <button type="submit">Login</button> -->
             </form>
         </div>

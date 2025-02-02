@@ -15,12 +15,11 @@
                 <h1 class="nav-title"> InnerEcho </h1>
             </div>
             <ul class="nav-links display-flex ">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutUs.html">About Us</a></li>
-                <li><a href="">Services</a></li>
-                <li><a href="">Pages</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="aboutUs.php">About Us</a></li>
+                <li><a href="therapist.php">Services</a></li>
             </ul>
-            <a href="login.html"><button class="btn-primary">Login</button></a>
+            <a href="login.php"><button class="btn-primary">Login</button></a>
             
         </nav>
         <section class="banner">

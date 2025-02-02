@@ -16,12 +16,11 @@
                 <h1 class="nav-title"> InnerEcho </h1>
             </div>
             <ul class="nav-links display-flex ">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About Us</a></li>
                 <li><a href="">Services</a></li>
-                <li><a href="">Pages</a></li>
             </ul>
-            <a href="login.html"><button class="btn-primary">Login</button></a>
+            <a href="login.php"><button class="btn-primary">Login</button></a>
         </nav>
         <h1>Find a Therapist</h1>
         <p>Search and connect with the best therapists for your needs.</p>
@@ -55,20 +54,20 @@
             <img src="images/team-1.jpg" alt="Therapist" class="therapist-img">
             <h2>Dr. John Doe</h2>
             <p>Specialist in Anxiety & Stress</p>
-            <a href="bookAppointment.html"><button class="btn-book">Book Appointment</button></a>
+            <a href="bookAppointment.php"><button class="btn-book">Book Appointment</button></a>
             
         </div>
         <div class="therapist-card">
             <img src="images/team-2.jpg" alt="Therapist" class="therapist-img">
             <h2>Dr. Jane Smith</h2>
             <p>Expert in Family Counseling</p>
-            <a href="bookAppointment.html"><button class="btn-book">Book Appointment</button></a>
+            <a href="bookAppointment.php"><button class="btn-book">Book Appointment</button></a>
         </div>
         <div class="therapist-card">
             <img src="images/team-3.png" alt="Therapist" class="therapist-img">
             <h2>Dr. Emily White</h2>
             <p>Depression & Self-Care Coach</p>
-            <a href="bookAppointment.html"><button class="btn-book">Book Appointment</button></a>
+            <a href="bookAppointment.php"><button class="btn-book">Book Appointment</button></a>
         </div>
     </section>
     <footer>

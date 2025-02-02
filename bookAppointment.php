@@ -15,12 +15,11 @@
                 <h1 class="nav-title"> InnerEcho </h1>
             </div>
             <ul class="nav-links display-flex ">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="">Services</a></li>
-                <li><a href="">Pages</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About Us</a></li>
+                <li><a href="therapist.php">Services</a></li>
             </ul>
-            <a href="login.html"><button class="btn-primary">Login</button></a>
+            <a href="login.php"><button class="btn-primary">Login</button></a>
         </nav>
         <h1>Book an Appointment</h1>
         <p>Schedule a session with your preferred therapist.</p>
@@ -52,7 +51,7 @@
                     <option value="Dr. Emily White">Dr. Emily White</option>
                 </select>
             </div>
-            <a href="conformation.html"><button type="submit" class="btn-submit">Confirm Appointment</button></a>
+            <a href=""><button type="submit" class="btn-submit">Confirm Appointment</button></a>
         </form>
     </section>
     <footer>

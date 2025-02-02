@@ -25,7 +25,7 @@
                 <input type="password" id="password" name="password" placeholder="Enter password" required>
 
                 <button type="submit">Add User</button>
-                <p><a href="admin-dashboard.html">Back to Admin Panel</a></p>
+                <p><a href="admin-dashboard.php>Back to Admin Panel</a></p>
             </form>
     </div>
     </main>
