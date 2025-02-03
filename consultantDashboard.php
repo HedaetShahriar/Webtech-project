@@ -30,7 +30,7 @@
                 echo '
                 <div class="nav-buttons display-flex">
                     <a href=""><button class="button"><i class="fa-solid fa-bell"></i></button></a>
-                    <a href="userProfile.php"><button class="button"><i class="fa-solid fa-user"></i></button></a>
+                    <a href="consultantProfile.php"><button class="button"><i class="fa-solid fa-user"></i></button></a>
                     <form action="" method="post">
                         <button type="submit" name="logout" class="button"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </form>

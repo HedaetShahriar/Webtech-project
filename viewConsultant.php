@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UserInfo - InnerEcho</title>
-    <link rel="stylesheet" href="Styles/consultantInfo.css">
+    <link rel="stylesheet" href="Styles/viewConsultant.css">
     <script src="https://kit.fontawesome.com/6a2c66ea03.js" crossorigin="anonymous"></script>
 </head>
 <body class="manrope-font">

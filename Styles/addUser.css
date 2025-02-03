@@ -2,7 +2,7 @@
 body {
     font-family: 'Manrope', sans-serif;
     background-color:#e7fff6;
-    padding:120px; 
+    padding:50px; 
 }
 
 /* Container styling */
@@ -29,7 +29,7 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 label {
@@ -67,7 +67,6 @@ button:hover {
 /* Back to Admin Panel link */
 p a {
     display: inline-block;
-    margin-top: 10px;
     color: #007D6E;
     text-decoration: none;
     font-weight: bold;
@@ -76,3 +75,34 @@ p a {
 p a:hover {
     text-decoration: underline;
 }
+
+.show-password {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.show-password input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.show-password label {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+/* Simple message styling */
+#message {
+    padding: 10px;
+    margin: 10px 0;
+    display: none;
+}
+.success { color: green; }
+.error {
+    font-size: 16px;
+    font-weight: semi-bold;
+    color: red;
+ }

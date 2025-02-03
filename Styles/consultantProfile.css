@@ -94,3 +94,21 @@ body {
 .submit-button:hover {
     background: black;
 }
+ 
+.consultant-dropdown {
+    display: none; /* Initially hide the dropdown */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    width: 100%;
+    max-width: 200px;
+}
+ 
+.consultant-dropdown:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+ 
