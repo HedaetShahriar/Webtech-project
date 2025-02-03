@@ -1,10 +1,3 @@
-<?php
-    //if username is already set, redirect to index.php
-    session_start();
-    if (!isset($_SESSION["uname"])) {
-        header("Location: login.php");
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,29 +19,15 @@
                 <li><a href="adminUserInfo.php">User</a></li>
                 <li><a href="adminConsultantInfo.php">Consultant</a></li>
             </ul>
-            <?php
-                echo '
-                <div class="nav-buttons display-flex">
-                    <a href=""><button class="button"><i class="fa-solid fa-bell"></i></button></a>
-                    <a href="userProfile.php"><button class="button"><i class="fa-solid fa-user"></i></button></a>
-                    <form action="" method="post">
-                        <button type="submit" name="logout" class="button"><i class="fa-solid fa-right-from-bracket"></i></button>
-                    </form>
-                    <!-- <button class="button"><i class="fa-solid fa-user"></i></button> -->
+            <div class="nav-buttons display-flex">
+                <div class="icon-circle">
+                    <a href="adminConsultantInfo.php"><i class="fa-solid fa-user"></i></a>
                 </div>
-                ';
-
-                // Check if the user is logged in
-                if (isset($_SESSION["uname"])) {
-                    if (isset($_POST['logout'])) {
-                        unset($_SESSION['uname']); // Unset the session variable
-                        unset($_SESSION['role']);
-                        header("Location: index.php"); // Redirect to homepage
-                        session_destroy(); // Destroy the session
-                        exit();
-                    }
-                }
-            ?>
+                <div class="icon-circle">
+                    <a href="login.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+                </div>
+                
+            </div>
         </nav>
     </header>
     <main>
@@ -60,7 +39,8 @@
                     <div class="admin-card">
                         <h2>View Users</h2>
                         <p>View the list of the Users of the platform. View their details and expertise</p>
-                        <a href="userInfo.php"><button>View User</button></a>
+                        <a href="adminUserInfo.php"><button>View User</button></a>
+                        
                     </div>
                     <!-- Add User Card -->
                     <div class="admin-card">
@@ -79,7 +59,8 @@
                     <div class="admin-card">
                         <h2>Consultants</h2>
                         <p>View the list of the consultants of the platform. View their details and expertise.</p>
-                        <a href="consultantInfo.php"><button>View Consultants</button></a>
+                        <a href="adminConsultantInfo.php"><button>View Consultants</button></a>
+                        
                     </div>
                     <!-- Remove Consultant Card -->
                     <div class="admin-card">
@@ -105,6 +86,7 @@
                 <p>Address: Bashundhara R/A, Block E, Dhaka</p>
                 <p>Phone: +123 456 7890</p>
                 <p>Email:innerecho@gmail.com</p>
+            </div>
         </div>
     </footer>
 </body>
