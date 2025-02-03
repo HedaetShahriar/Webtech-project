@@ -1,20 +1,20 @@
 <?php
     //if username is already set, redirect to index.php
-    session_start();
-    if (isset($_SESSION["uname"])) {
-        switch ($_SESSION["role"]) {
-            case 'admin':
-                header("Location: adminDashboard.php");
-                break;
-            case 'consultant':
-                header("Location: consultantDashboard.php");
-                break;
-            case 'user':
-                header("Location: UserPage.php");
-                break;
-        }
-        exit();
-    }
+    // session_start();
+    // if (isset($_SESSION["uname"])) {
+    //     switch ($_SESSION["role"]) {
+    //         case 'admin':
+    //             header("Location: adminDashboard.php");
+    //             break;
+    //         case 'consultant':
+    //             header("Location: consultantDashboard.php");
+    //             break;
+    //         case 'user':
+    //             header("Location: UserPage.php");
+    //             break;
+    //     }
+    //     exit();
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="en">

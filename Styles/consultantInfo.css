@@ -27,7 +27,7 @@ html {
 .text-center{
     text-align: center;
 }
-
+ 
 /* Nev Styles */
 .nav-bar{
     max-width: 1280px;
@@ -56,47 +56,43 @@ html {
     font-size: 22px;
 }
 
-.icon-circle {
+/* Icon Styling */
+.button{
     width: 50px; 
     height: 50px;
     border: 2px solid #4c9164; 
     border-radius: 50%; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: white;
 }
-
-/* Icon Styling */
-.icon-circle i {
+.button i {
     font-size: 20px;
     color:#4c9164;
 }
-.user-table {
+.Consultant-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
-
-.user-table th, .user-table td {
+ 
+.Consultant-table th, .Consultant-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
-
-.user-table th {
+ 
+.Consultant-table th {
     background-color: #4CAF50;
     color: white;
 }
-
-.user-table tr:nth-child(even) {
+ 
+.Consultant-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-
-.user-table tr:hover {
+ 
+.Consultant-table tr:hover {
     background-color: #ddd;
 }
-
+ 
 .admin-container{
     max-width: 1280px;
     margin: 0 auto;
@@ -108,7 +104,7 @@ html {
     justify-content: center;
     gap: 20px;
 }
-
+ 
 .btn{
     background-color:#EC744A ;
     padding: 12px 35px;
@@ -118,16 +114,16 @@ html {
     border:none;
     border-radius: 15px;
 }
-
+ 
 .footer-logo{
     display: flex;
     gap: 15px;
     color: white;
     align-items: center;
-
+ 
 }
 footer{
-    background: #222; 
+    background: #222;
     position:fixed;
     bottom: 0;
     left: 0;
@@ -135,7 +131,7 @@ footer{
 }
 .logo-footer{
     width: 50px;
-    height: 50px; 
+    height: 50px;
 }
 .footer-container{
     display: flex;
@@ -150,6 +146,3 @@ footer{
     max-width: 350px;
     color: white;
 }
-
-
-

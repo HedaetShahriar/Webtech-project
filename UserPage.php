@@ -1,3 +1,10 @@
+<?php
+    //if username is already set, redirect to index.php
+    session_start();
+    if (!isset($_SESSION["uname"])) {
+        header("Location: login.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,11 +28,10 @@
                 <li><a href="">Pages</a></li>
             </ul>
             <?php
-                session_start();
                 echo '
                 <div class="nav-buttons display-flex">
                     <a href=""><button class="button"><i class="fa-solid fa-bell"></i></button></a>
-                    <a href=""><button class="button"><i class="fa-solid fa-user"></i></button></a>
+                    <a href="userProfile.php"><button class="button"><i class="fa-solid fa-user"></i></button></a>
                     <form action="" method="post">
                         <button type="submit" name="logout" class="button"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </form>

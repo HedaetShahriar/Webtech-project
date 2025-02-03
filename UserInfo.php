@@ -1,19 +1,8 @@
 <?php
     //if username is already set, redirect to index.php
     session_start();
-    if (isset($_SESSION["uname"])) {
-        switch ($_SESSION["role"]) {
-            case 'admin':
-                header("Location: adminDashboard.php");
-                break;
-            case 'consultant':
-                header("Location: consultantDashboard.php");
-                break;
-            case 'user':
-                header("Location: UserPage.php");
-                break;
-        }
-        exit();
+    if (!isset($_SESSION["uname"])) {
+        header("Location: login.php");
     }
 ?>
 <!DOCTYPE html>
@@ -22,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UserInfo - InnerEcho</title>
-    <link rel="stylesheet" href="Styles/adminUserInfo.css">
+    <link rel="stylesheet" href="Styles/userInfo.css">
     <script src="https://kit.fontawesome.com/6a2c66ea03.js" crossorigin="anonymous"></script>
 </head>
 <body class="manrope-font">
@@ -37,15 +26,29 @@
                 <li><a href="adminUserInfo.php">User</a></li>
                 <li><a href="adminConsultantInfo.php">Consultant</a></li>
             </ul>
-            <div class="nav-buttons display-flex">
-                <div class="icon-circle">
-                    <a href="adminConsultantInfo.php"><i class="fa-solid fa-user"></i></a>
+            <?php
+                echo '
+                <div class="nav-buttons display-flex">
+                    <a href=""><button class="button"><i class="fa-solid fa-bell"></i></button></a>
+                    <a href="userProfile.php"><button class="button"><i class="fa-solid fa-user"></i></button></a>
+                    <form action="" method="post">
+                        <button type="submit" name="logout" class="button"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </form>
+                    <!-- <button class="button"><i class="fa-solid fa-user"></i></button> -->
                 </div>
-                <div class="icon-circle">
-                    <a href="login.php"><i class="fa-solid fa-right-from-bracket"></i></a>
-                </div>
-                
-            </div>
+                ';
+
+                // Check if the user is logged in
+                if (isset($_SESSION["uname"])) {
+                    if (isset($_POST['logout'])) {
+                        unset($_SESSION['uname']); // Unset the session variable
+                        unset($_SESSION['role']);
+                        header("Location: index.php"); // Redirect to homepage
+                        session_destroy(); // Destroy the session
+                        exit();
+                    }
+                }
+            ?>
         </nav>
     </header>
     <main>
