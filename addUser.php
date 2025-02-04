@@ -59,7 +59,7 @@
                     <label for="showPassword">Show Password</label>
                 </div>
                 <button type="submit">Add User</button>
-                <p><a href="admin-dashboard.php">Back to Admin Panel</a></p>
+                <p><a href="adminDashboard.php">Back to Admin Panel</a></p>
             </form>
             <script>
                 // Password toggle function

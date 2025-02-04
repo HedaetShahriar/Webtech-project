@@ -23,8 +23,8 @@
             </div>
             <ul class="nav-links display-flex ">
                 <li><a href="adminDashboard.php">Home</a></li>
-                <li><a href="adminUserInfo.php">User</a></li>
-                <li><a href="adminConsultantInfo.php">Consultant</a></li>
+                <li><a href="viewUer.php">User</a></li>
+                <li><a href="viewConsultant.php">Consultant</a></li>
             </ul>
             <?php
                 echo '

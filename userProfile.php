@@ -65,7 +65,7 @@
             <ul class="nav-links display-flex ">
                 <li><a href="UserPage.php">Home</a></li>
                 <li><a href="">User</a></li>
-                <li><a href="bookConsultant.php">Consultant</a></li>
+                <li><a href="">Consultant</a></li>
             </ul>
             <?php
                 echo '
