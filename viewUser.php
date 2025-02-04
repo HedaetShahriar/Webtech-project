@@ -3,7 +3,7 @@
     session_start();
     if (!isset($_SESSION["uname"])) {
         header("Location: login.php");
-        exit(); // Always exit after a header redirect
+        exit(); 
     }
     $conn = new mysqli('localhost', 'root', '', 'project');
 
@@ -56,8 +56,8 @@
             </div>
             <ul class="nav-links display-flex ">
                 <li><a href="adminDashboard.php">Home</a></li>
-                <li><a href="adminUserInfo.php">User</a></li>
-                <li><a href="adminConsultantInfo.php">Consultant</a></li>
+                <li><a href="viewUser.php">User</a></li>
+                <li><a href="viewConsultant">Consultant</a></li>
             </ul>
             <?php
                 echo '

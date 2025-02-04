@@ -125,14 +125,14 @@ main {
     border-radius: 12px;
 }
 
-.profile-details {
+.profile-info div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.profile-details span {
+.profile-info div span {
     font-size: 16px;
 }
 
@@ -147,8 +147,6 @@ main {
     background: none;
     outline: none;
     font-size: 16px;
-    text-align: right;
-    padding-right: 10px;
 }
 
 .submit-button {
@@ -169,10 +167,11 @@ main {
 .consultant-dropdown {
     display: none;
     border-radius: 5px;
-    background-color: transparent;
     border: none;
+    background: none;
     outline: none;
     font-size: 16px;
+    width: 50%;
 }
 
 .consultant-dropdown:focus {

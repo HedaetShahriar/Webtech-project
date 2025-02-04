@@ -23,11 +23,33 @@
                 <h1 class="nav-title"> InnerEcho </h1>
             </div>
             <ul class="nav-links display-flex ">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.php">About Us</a></li>
-                <li><a href="">Services</a></li>
+                <li><a href="adminDashboard.php">Home</a></li>
+                <li><a href="adminUserInfo.php">User</a></li>
+                <li><a href="adminConsultantInfo.php">Consultant</a></li>
             </ul>
-            <a href="login.php"><button class="btn-primary">Login</button></a>
+            <?php
+                echo '
+                <div class="nav-buttons display-flex">
+                    <a href=""><button class="button"><i class="fa-solid fa-bell"></i></button></a>
+                    <a href="userProfile.php"><button class="button"><i class="fa-solid fa-user"></i></button></a>
+                    <form action="" method="post">
+                        <button type="submit" name="logout" class="button"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </form>
+                    <!-- <button class="button"><i class="fa-solid fa-user"></i></button> -->
+                </div>
+                ';
+
+                // Check if the user is logged in
+                if (isset($_SESSION["uname"])) {
+                    if (isset($_POST['logout'])) {
+                        unset($_SESSION['uname']); // Unset the session variable
+                        unset($_SESSION['role']);
+                        header("Location: index.php"); // Redirect to homepage
+                        session_destroy(); // Destroy the session
+                        exit();
+                    }
+                }
+            ?>
         </nav>
         <h1>Find a Therapist</h1>
         <p>Search and connect with the best therapists for your needs.</p>

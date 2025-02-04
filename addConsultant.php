@@ -10,6 +10,7 @@
         $email = $_POST['email'];
         $contact = $_POST['contact'];
         $password = $_POST['password'];
+        $consultancyType = $_POST['ctype'];
 
         $conn = new mysqli('localhost', 'root', '', 'project');
 
@@ -17,7 +18,7 @@
             die(json_encode(['success' => false, 'message' => "Connection failed"]));
         }
 
-        $sql = "INSERT INTO `users`(`Name`, `Email`, `Contact`, `Password`, `Role`) VALUES ('$fullname', '$email', '$contact', '$password', 'consultant')";
+        $sql = "INSERT INTO `users`(`Name`, `Email`, `Contact`, `consultancyType`, `Password`, `Role`) VALUES ('$fullname', '$email', '$contact', '$consultancyType', '$password', 'consultant')";
 
         if ($conn->query($sql)) {
             echo json_encode(['success' => true]);
@@ -50,7 +51,15 @@
                 <input type="email" id="email" name="email" placeholder="Enter email" required>
 
                 <label for="contact">Phone Number <span id="phone"></span></label>
-                <input type="text" id="contact" name="contact" placeholder="Enter phone number" required>
+                <input type="text" id="contact" name="contact" placeholder="Enter phone number">
+
+                <label for="ctype">Consultant Type</label>
+                <select name="ctype" id="ctype" required>
+                    <option>Select a type</option>
+                    <option value="online">Online</option>
+                    <option value="family">Family</option>
+                    <option value="personal">Personal</option>
+                </select>
 
                 <label for="password">Password <span id="pass"></span></label>
                 <input type="password" id="password" name="password" placeholder="Enter password" required>
@@ -58,7 +67,7 @@
                     <input type="checkbox" id="showPassword" onclick="togglePassword()">
                     <label for="showPassword">Show Password</label>
                 </div>
-                <button type="submit">Add User</button>
+                <button type="submit">Add Consultant</button>
                 <p><a href="admin-dashboard.php">Back to Admin Panel</a></p>
             </form>
             <script>
@@ -96,8 +105,8 @@
                         return;
                     }
 
-                    const phonePattern = /^[0-9]{8,12}$/; // Allows 10-15 digit numbers
-                    if (!phonePattern.test(contact)) {
+                    const phonePattern = /^[0-9]{8,12}$/; // Allows 8-12 digit numbers
+                    if (contact !== "" && !phonePattern.test(contact)) {
                         phone.innerHTML = 'Invalid phone number';
                         phone.className = 'error';
                         phone.style.display = 'inline';

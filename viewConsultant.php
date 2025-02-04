@@ -23,9 +23,11 @@
         $userId = $_POST['userId'];
         $name = $_POST['name'];
         $email = $_POST['email'];
+        $consultancyType = $_POST['consultancyType'];
         $contact = $_POST['contact'];
+        $password = $_POST['password'];
 
-        $sql = "UPDATE users SET Name='$name', Email='$email', Contact='$contact' WHERE Id=$userId";
+        $sql = "UPDATE users SET Name='$name', Email='$email',consultancyType='$consultancyType', Contact='$contact',Password='$password' WHERE Id=$userId";
         if ($conn->query($sql)) {
             echo "User updated successfully";
         } else {
@@ -34,7 +36,7 @@
         exit();
     }
     // Fetch users from the database
-    $sql = "SELECT `Id`, `Name`, `Email`, `Contact`, `Password` FROM `users` WHERE `Role` = 'consultant'";
+    $sql = "SELECT `Id`, `Name`, `Email`, `Contact`, `consultancyType`, `Password` FROM `users` WHERE `Role` = 'consultant'";
     $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
@@ -54,9 +56,9 @@
                 <h1 class="nav-title"> InnerEcho </h1>
             </div>
             <ul class="nav-links display-flex ">
-                <li><a href="adminDashboard.html">Home</a></li>
-                <li><a href="adminUserInfo.html">User</a></li>
-                <li><a href="adminConsultantInfo.html">Consultant</a></li>
+                <li><a href="adminDashboard.php">Home</a></li>
+                <li><a href="viewUser.php">User</a></li>
+                <li><a href="viewConsultant">Consultant</a></li>
             </ul>
             <?php
                 echo '
@@ -86,7 +88,7 @@
     <main>
         <section class="admin-container">
             <div class="admin-card text-center">
-                <h2>User List</h2>
+                <h2>Consultant List</h2>
                 <!-- Search Bar -->
                 <input type="text" id="searchInput" class="search-bar" placeholder="Search users..." onkeyup="searchTable()">
                 <table id="userTable" class="user-table">
@@ -96,6 +98,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Contact</th>
+                            <th>Consultancy Type</th>
                             <th>Password</th>
                             <th>Action</th>
                         </tr>
@@ -109,6 +112,13 @@
                                 <td contenteditable="true">' . $row['Name'] . '</td>
                                 <td contenteditable="true">' . $row['Email'] . '</td>
                                 <td contenteditable="true">' . $row['Contact'] . '</td>
+                                <td>
+                                    <select class="consultancy-type">
+                                        <option value="Online" ' . ($row['consultancyType'] == 'Online' ? 'selected' : '') . '>Online</option>
+                                        <option value="Family" ' . ($row['consultancyType'] == 'Family' ? 'selected' : '') . '>Family</option>
+                                        <option value="Personal" ' . ($row['consultancyType'] == 'Personal' ? 'selected' : '') . '>Personal</option>
+                                    </select>
+                                </td>
                                 <td contenteditable="true">' . $row['Password'] . '</td>
                                 <td>
                                     <button class="save-btn" onclick="updateUser(this)">Save</button>
@@ -118,7 +128,7 @@
                                 </td>
                             </tr>';
                         } 
-                    ?>
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -148,13 +158,17 @@
                     let name = row.cells[1].innerText;
                     let email = row.cells[2].innerText;
                     let contact = row.cells[3].innerText;
+                    let password = row.cells[5].innerText;
+                    let consultancyType = row.querySelector('.consultancy-type').value;
 
                     let formData = new FormData();
                     formData.append("updateUser", "true");
                     formData.append("userId", userId);
                     formData.append("name", name);
                     formData.append("email", email);
+                    formData.append("consultancyType", consultancyType);
                     formData.append("contact", contact);
+                    formData.append("password", password);
 
                     fetch("", { // Sends data to the same PHP file
                         method: "POST",
