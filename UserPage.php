@@ -20,10 +20,6 @@
 
     // Handle AJAX request for booking appointment
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'bookAppointment') {
-        // if (!isset($_SESSION["uname"])) {
-        //     echo json_encode(["status" => "error", "message" => "User not logged in."]);
-        //     exit();
-        // }
         if ($usersID) {
             $userId = $usersID['Id'];
         } else {

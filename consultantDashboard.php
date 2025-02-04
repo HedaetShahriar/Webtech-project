@@ -4,6 +4,58 @@
     if (!isset($_SESSION["uname"])) {
         header("Location: login.php");
     }
+    //session_start();
+    $conn = new mysqli('localhost', 'root', '', 'project');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    // Fetch consultant details
+    $username = $_SESSION["uname"];
+    $sqlID = "SELECT `Id`, `Name`, `Email`, `Contact`, `Password`, `image` FROM `users` WHERE `Name` = '$username' AND `Role` = 'consultant'";
+    $resultID = $conn->query($sqlID);
+    $usersID = $resultID->fetch_assoc();
+
+    $consultantId = $usersID['Id'];
+    // Handle accept/reject actions
+    if (isset($_POST['action']) && isset($_POST['appointment_id'])) {
+        $appointmentId = $_POST['appointment_id'];
+        $action = $_POST['action'];
+        $allocatedDate = isset($_POST['allocated_date']) ? $_POST['allocated_date'] : ''; 
+
+        if ($action === 'accept') {
+            // If a date is selected, update the appointment with the allocated date
+            if ($allocatedDate != '') {
+                $updateQuery = "UPDATE appointments SET status = 'accepted', final_appointment_date = '$allocatedDate' WHERE id = $appointmentId";
+                $message = "Your appointment has been accepted! The allocated date is $allocatedDate. Please be available at the specified time.";
+            } else {
+                // If no date is provided, just accept the request without setting a date
+                $updateQuery = "UPDATE appointments SET status = 'accepted' WHERE id = $appointmentId";
+                $message = "Your appointment has been accepted, but no date has been allocated yet. Please wait for the consultant to allocate a date.";
+            }
+        } elseif ($action === 'reject') {
+            $updateQuery = "UPDATE appointments SET status = 'denied' WHERE id = $appointmentId";
+            $message = "Your appointment request has been rejected.";
+        }
+        // Get user ID from the appointment
+        $queryNotification = "SELECT user_id FROM appointments WHERE id = $appointmentId";
+        $resultNotification = mysqli_query($conn, $queryNotification);
+        $appointment = mysqli_fetch_assoc($resultNotification);
+        $RequestedUserId = $appointment['user_id'];
+        
+
+        // Insert notification for the user
+        $insertNotificationQuery = "INSERT INTO notifications (user_id, message) VALUES ($RequestedUserId, '$message')";
+        mysqli_query($conn, $insertNotificationQuery);
+
+        // Execute the update query
+        mysqli_query($conn, $updateQuery);
+        header("Location: consultantDashboard.php");
+        exit();
+    }
+
+    // Fetch all pending booking requests
+    $query = "SELECT * FROM appointments WHERE consultant_id = $consultantId AND status = 'pending' ORDER BY created_at DESC";
+    $result = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,34 +104,41 @@
         </nav>
 
     <main class="consultant-container">
-        <!-- Requests Section -->
+        <!-- Booking Requests Section -->
         <section class="request-section">
             <h2 class="section-title">Booking Requests</h2>
-            <div class="no-request">
-                <h1>No request for now</h1>
-            </div>
-            <div class="request-card">
-                <div class="request-info">
-                    <h3>John Doe</h3>
-                    <p>Requested Time: Wednesday 3:00 PM</p>
-                    <p>Consultation Type: Family</p>
-                </div>
-                <div class="request-actions">
-                    <button class="accept-btn">Accept</button>
-                    <button class="reject-btn">Reject</button>
-                </div>
-            </div>
-            <div class="request-card">
-                <div class="request-info">
-                    <h3>Jane Smith</h3>
-                    <p>Requested Time: Friday 10:00 AM</p>
-                    <p>Consultation Type: Personal</p>
-                </div>
-                <div class="request-actions">
-                    <button class="accept-btn">Accept</button>
-                    <button class="reject-btn">Reject</button>
-                </div>
-            </div>
+
+            <?php
+            if (mysqli_num_rows($result) > 0) {
+                // Output each request
+                while ($row = mysqli_fetch_assoc($result)) {
+                    // Fetch user details based on user_id
+                    $userId = $row['user_id'];
+                    $userQuery = "SELECT Name FROM users WHERE Id = $userId"; // No SQL protection here
+                    $userResult = mysqli_query($conn, $userQuery);
+                    $user = mysqli_fetch_assoc($userResult);
+
+                    echo '
+                    <div class="request-card">
+                        <div class="request-info">
+                            <h3>' . $user['Name'] . '</h3>
+                            <p>Preferred Time: ' . $row['preferred_day'] . ' ' . $row['preferred_time'] . '
+                        </div>
+                        <div class="request-actions">
+                            <form method="post" action="">
+                                <input type="hidden" name="appointment_id" value="' . $row['id'] . '">
+                                <label for="allocated_date">Allocate Date:</label>
+                                <input type="date" name="allocated_date" id="allocated_date" required>
+                                <button class="accept-btn" name="action" value="accept">Accept</button>
+                                <button class="reject-btn" name="action" value="reject">Reject</button>
+                            </form>
+                        </div>
+                    </div>';
+                }
+            } else {
+                echo '<div class="no-request"><h1>No request for now</h1></div>';
+            }
+            ?>
         </section>
 
         <!-- Update Availability Section -->
