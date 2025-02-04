@@ -64,6 +64,9 @@ html {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+.search-bar {
+    width: 300px;
+}
 .btn-search {
     background-color: #4CAF50;
     color: white;
@@ -84,9 +87,17 @@ html {
     text-align: center;
     width: 250px;
 }
+.therapist-card h2 {
+    color: #333231;
+    margin-top: 5px;
+}
+.therapist-card p {
+    margin: 10px 0;
+}
 .therapist-img {
-    width: 100%;
+    width: 220px;
     border-radius: 50%;
+    border: 2px solid #4CAF50;
 }
 .btn-book {
     background-color: #ff5722;

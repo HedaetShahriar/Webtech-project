@@ -1,9 +1,19 @@
 <?php
-    //if username is already set, redirect to index.php
-    session_start();
-    if (!isset($_SESSION["uname"])) {
-        header("Location: login.php");
+    $conn = new mysqli('localhost', 'root', '', 'project');
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
+    $sql = "SELECT `Id`,`Name`,`Contact`, `Role`, `consultancyType`, `image` FROM `users` WHERE `Role` = 'consultant'";
+
+    $result = $conn->query($sql);
+    $therapists = [];
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $therapists[] = $row;
+        }
+    }
+    $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,87 +27,43 @@
 </head>
 <body>
     <header class="header">
-        <nav class="nav-bar display-flex">
+    <nav class="nav-bar display-flex">
             <div class="nav-logo display-flex">
                 <img src="images/logo.png" alt="InnerEcho Logo" class="logo">
                 <h1 class="nav-title"> InnerEcho </h1>
             </div>
             <ul class="nav-links display-flex ">
-                <li><a href="adminDashboard.php">Home</a></li>
-                <li><a href="adminUserInfo.php">User</a></li>
-                <li><a href="adminConsultantInfo.php">Consultant</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About Us</a></li>
+                <li><a href="therapist.php">Services</a></li>
             </ul>
-            <?php
-                echo '
-                <div class="nav-buttons display-flex">
-                    <a href=""><button class="button"><i class="fa-solid fa-bell"></i></button></a>
-                    <a href="userProfile.php"><button class="button"><i class="fa-solid fa-user"></i></button></a>
-                    <form action="" method="post">
-                        <button type="submit" name="logout" class="button"><i class="fa-solid fa-right-from-bracket"></i></button>
-                    </form>
-                    <!-- <button class="button"><i class="fa-solid fa-user"></i></button> -->
-                </div>
-                ';
-
-                // Check if the user is logged in
-                if (isset($_SESSION["uname"])) {
-                    if (isset($_POST['logout'])) {
-                        unset($_SESSION['uname']); // Unset the session variable
-                        unset($_SESSION['role']);
-                        header("Location: index.php"); // Redirect to homepage
-                        session_destroy(); // Destroy the session
-                        exit();
-                    }
-                }
-            ?>
+            <a href="login.php"><button class="btn-primary">Login</button></a>
         </nav>
         <h1>Find a Therapist</h1>
         <p>Search and connect with the best therapists for your needs.</p>
     </header>
     
     <section class="search-filter">
-        <input type="text" placeholder="Search by name or specialty..." class="search-bar">
-        <select class="filter">
-            <option value="">Select Specialization</option>
-            <option value="anxiety">Anxiety</option>
-            <option value="depression">Depression</option>
-            <option value="relationship">Relationship Therapy</option>
-            <option value="family">Family Counseling</option>
-        </select>
-        <select class="filter">
-            <option value="">Experience Level</option>
-            <option value="1-5">1-5 Years</option>
-            <option value="6-10">6-10 Years</option>
-            <option value="10+">10+ Years</option>
-        </select>
+        <input type="text" placeholder="Search by name or type..." class="search-bar">
         <select class="filter">
             <option value="">Session Type</option>
-            <option value="online">Online</option>
-            <option value="in-person">In-Person</option>
+            <option value="Online">Online</option>
+            <option value="Family">Family</option>
+            <option value="Personal">Personal</option>
         </select>
-        <button class="btn-search">Search</button>
+        <button class="btn-search" id="search-btn">Search</button>
     </section>
     
     <section class="therapist-list">
+        <!-- Dynamic therapist cards will be loaded here -->
+        <?php foreach ($therapists as $therapist): ?>
         <div class="therapist-card">
-            <img src="images/team-1.jpg" alt="Therapist" class="therapist-img">
-            <h2>Dr. John Doe</h2>
-            <p>Specialist in Anxiety & Stress</p>
-            <a href="bookAppointment.php"><button class="btn-book">Book Appointment</button></a>
-            
-        </div>
-        <div class="therapist-card">
-            <img src="images/team-2.jpg" alt="Therapist" class="therapist-img">
-            <h2>Dr. Jane Smith</h2>
-            <p>Expert in Family Counseling</p>
+            <img src="<?php echo $therapist['image']; ?>" alt="Therapist" class="therapist-img">
+            <h2><?php echo $therapist['Name']; ?></h2>
+            <p><?php echo $therapist['consultancyType']; ?></p>
             <a href="bookAppointment.php"><button class="btn-book">Book Appointment</button></a>
         </div>
-        <div class="therapist-card">
-            <img src="images/team-3.png" alt="Therapist" class="therapist-img">
-            <h2>Dr. Emily White</h2>
-            <p>Depression & Self-Care Coach</p>
-            <a href="bookAppointment.php"><button class="btn-book">Book Appointment</button></a>
-        </div>
+        <?php endforeach; ?>
     </section>
     <footer>
         <div class="footer-container">

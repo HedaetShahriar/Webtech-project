@@ -3,6 +3,47 @@
     session_start();
     if (!isset($_SESSION["uname"])) {
         header("Location: login.php");
+        exit(); 
+    }
+    //session_start();
+    $conn = new mysqli('localhost', 'root', '', 'project');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    // Fetch consultant details
+    $username = $_SESSION["uname"];//"Himon";
+    $sqlID = "SELECT `Id`, `Name`, `Email`, `Contact`, `Password`, `image` FROM `users` WHERE `Name` = '$username'";
+    $resultID = $conn->query($sqlID);
+    $usersID = $resultID->fetch_assoc();
+
+    
+
+    // Handle AJAX request for booking appointment
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'bookAppointment') {
+        // if (!isset($_SESSION["uname"])) {
+        //     echo json_encode(["status" => "error", "message" => "User not logged in."]);
+        //     exit();
+        // }
+        if ($usersID) {
+            $userId = $usersID['Id'];
+        } else {
+            echo json_encode(['success' => false, 'message' => 'User not found']);
+            exit();
+        }
+
+        $preferredDay = $_POST['preferredDay'];
+        $preferredTime = $_POST['preferredTime'];
+        $consultantId = $_POST['consultant'];
+    
+        $sql = "INSERT INTO appointments (user_id, consultant_id, preferred_day, preferred_time, status) 
+                VALUES ('$userId', '$consultantId', '$preferredDay', '$preferredTime', 'pending')";
+    
+        if ($conn->query($sql)) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => $conn->error]);
+        }
+        exit();
     }
 ?>
 <!DOCTYPE html>
@@ -44,8 +85,8 @@
                     if (isset($_POST['logout'])) {
                         unset($_SESSION['uname']); // Unset the session variable
                         unset($_SESSION['role']);
-                        header("Location: index.php"); // Redirect to homepage
                         session_destroy(); // Destroy the session
+                        header("Location: index.php"); // Redirect to homepage
                         exit();
                     }
                 }
@@ -57,7 +98,7 @@
     <main>
         <section class="user-dashboard">
             <div class="dashboard-content">
-                <h1>Welcome Back, <span class="username">User</span>!</h1>
+                <h1>Welcome Back, <span class="username"><?php echo $usersID['Name']; ?></span>!</h1>
                 <p>Your mental wellness journey starts here. Keep track of your thoughts and emotions.</p>
                 <button class="btn-primary" onclick="openJournalModal()">Create Journal</button>
             </div>
@@ -191,23 +232,43 @@
             </form>
         </div>
     </div>
-
+    <!-- Book Appointment Modal -->
     <div id="appointmentModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeAppointmentModal()">X</span>
             <h2>Book an Appointment</h2>
-            <form action="#" method="POST" class="form">
-                <label for="date">Preferred Date</label>
-                <input type="date" id="date" name="date" required>
-                <label for="time">Preferred Time</label>
-                <input type="time" id="time" name="time" required>
-                <label for="therapist">Select Therapist</label>
-                <select id="therapist" name="therapist">
-                    <option value="Dr. John Doe">Dr. John Doe</option>
-                    <option value="Dr. Jane Smith">Dr. Jane Smith</option>
-                    <option value="Dr. Emily White">Dr. Emily White</option>
+            <form id="appointmentForm" class="form">
+                <label for="preferredDay">Preferred Day</label>
+                <select name="preferredDay" id="preferredDay" required>
+                    <option value="">Select a day</option>
+                    <option value="Sunday-Tuesday">Sunday-Tuesday</option>
+                    <option value="Monday-Wednesday">Monday-Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
                 </select>
-                <button type="submit" class="btn-primary">Confirm Appointment</button>
+
+                <label for="preferredTime">Preferred Time</label>
+                <select name="preferredTime" id="preferredTime" required>
+                    <option value="">Select a time</option>
+                    <option value="9 AM - 11:00 AM">9:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 1:00 PM">11:00 AM - 1:00 PM</option>
+                    <option value="2:00 PM - 4:00 PM">2:00 PM - 4:00 PM</option>
+                    <option value="6:00 PM - 8:00 PM">6:00 PM - 8:00 PM</option>
+                </select>
+
+                <label for="consultant">Select Therapist</label>
+                <select id="consultant" name="consultant" required>
+                    <option value="">Select a consultant</option>
+                    <?php
+                    $consultantQuery = "SELECT Id, Name FROM users WHERE Role = 'consultant'";
+                    $result = $conn->query($consultantQuery);
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value='{$row['Id']}'>{$row['Name']}</option>";
+                    }
+                    ?>
+                </select>
+                <button type="submit" class="btn-primary" >Confirm Appointment</button>
             </form>
         </div>
     </div>
@@ -255,6 +316,27 @@
         function closeAppointmentModal() {
             document.getElementById("appointmentModal").style.display = "none";
         }
+        document.getElementById("appointmentForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let formData = new FormData(this);
+            formData.append("action", "bookAppointment");
+
+            fetch("UserPage.php", { 
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Appointment booked successfully!");
+                    closeAppointmentModal();
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
     </script>
 </body>
 </html>

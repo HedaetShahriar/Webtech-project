@@ -77,8 +77,8 @@
                     if (isset($_POST['logout'])) {
                         unset($_SESSION['uname']); // Unset the session variable
                         unset($_SESSION['role']);
-                        header("Location: index.php"); // Redirect to homepage
                         session_destroy(); // Destroy the session
+                        header("Location: index.php"); // Redirect to homepage
                         exit();
                     }
                 }

@@ -22,9 +22,9 @@
                 <h1 class="nav-title"> InnerEcho </h1>
             </div>
             <ul class="nav-links display-flex ">
-                <li><a href="adminDashboard.php">Home</a></li>
-                <li><a href="adminUserInfo.php">User</a></li>
-                <li><a href="adminConsultantInfo.php">Consultant</a></li>
+                <li><a href="consultantDashboard.php">Home</a></li>
+                <li><a href="">User</a></li>
+                <li><a href="">Consultant</a></li>
             </ul>
             <?php
                 echo '
@@ -43,8 +43,8 @@
                     if (isset($_POST['logout'])) {
                         unset($_SESSION['uname']); // Unset the session variable
                         unset($_SESSION['role']);
-                        header("Location: index.php"); // Redirect to homepage
                         session_destroy(); // Destroy the session
+                        header("Location: index.php"); // Redirect to homepage
                         exit();
                     }
                 }
