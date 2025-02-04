@@ -1,4 +1,34 @@
 <?php
+                $notificationQuery = "SELECT * FROM notifications WHERE user_id = {$usersID['Id']} AND is_read = '0'";
+                $result = $conn->query($notificationQuery);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<p>{$row['message']}</p>";
+                        
+                        echo '<form class="form" id="notificationTrack">
+                            <input type="hidden" name="notification_id" value="'.$row['id'].'">
+                            <button type="submit" class="btn-primary">Mark as read</button>
+                        </form>';
+                    }
+                }
+?>
+
+<?php
+                    //check if there is any unread notification
+                    //SELECT `id`, `user_id`, `message`, `is_read`, `created_at` FROM `notifications`
+                    $notificationQuery = "SELECT * FROM notifications WHERE user_id = {$usersID['Id']} AND is_read = '0'";
+                    $result = $conn->query($notificationQuery);
+                    if ($result->num_rows > 0) {
+                        echo "<p>You have a new notification</p>";
+                        echo "<button class='btn-primary' onclick='openNotificationModal()'>Show</button>";
+                    }
+                    else {
+                        echo "<p>No new notifications</p>";
+                    }
+                ?>
+
+<?php
+
     //if username is already set, redirect to index.php
     session_start();
     if (!isset($_SESSION["uname"])) {

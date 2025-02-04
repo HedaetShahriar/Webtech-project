@@ -19,9 +19,9 @@
     // Handle AJAX request for Notification Tracking
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'trackNotification') {
         // Get notification id
-        $notificationId = $_POST['notification_id'];
+        $notificationId = $_POST['ID'];
         // Update the notification as read
-        $updateQuery = "UPDATE notifications SET is_read = '1' WHERE id = $notificationId";
+        $updateQuery = "UPDATE notifications SET is_read = '1' WHERE user_id = $notificationId";
     
         if ($conn->query($sql)) {
             echo json_encode(['success' => true]);
@@ -268,20 +268,22 @@
         <div class="modal-content">
             <span class="close" onclick="closeNotificationModal()">X</span>
             <h2>Notifications</h2>
-            <?php
+             <?php
                 $notificationQuery = "SELECT * FROM notifications WHERE user_id = {$usersID['Id']} AND is_read = '0'";
                 $result = $conn->query($notificationQuery);
+                
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<p>{$row['message']}</p>";
                         
-                        echo '<form class="form" id="notificationTrack">
-                            <input type="hidden" name="notification_id" value="'.$row['id'].'">
-                            <button type="submit" class="btn-primary">Mark as read</button>
-                        </form>';
+
                     }
                 }
-            ?>
+                echo '<form class="form" id="notificationTrack">
+                        <input type="hidden" name="ID" value="'.$usersID['Id'].'">
+                        <button type="submit" class="btn-primary">Mark as read</button>
+                </form>';
+            ?> 
         </div>
     </div>
 
