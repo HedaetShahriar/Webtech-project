@@ -16,7 +16,20 @@
     $resultID = $conn->query($sqlID);
     $usersID = $resultID->fetch_assoc();
 
+    // Handle AJAX request for Notification Tracking
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'trackNotification') {
+        // Get notification id
+        $notificationId = $_POST['notification_id'];
+        // Update the notification as read
+        $updateQuery = "UPDATE notifications SET is_read = '1' WHERE id = $notificationId";
     
+        if ($conn->query($sql)) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => $conn->error]);
+        }
+        exit();
+    }
 
     // Handle AJAX request for booking appointment
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'bookAppointment') {
@@ -39,6 +52,102 @@
         } else {
             echo json_encode(['success' => false, 'message' => $conn->error]);
         }
+        exit();
+    }
+        // Handle AJAX request for Mood Tracking
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'trackMood') {
+    
+            if ($usersID) {
+                $userId = $usersID['Id'];
+            } else {
+                echo json_encode(['success' => false, 'message' => 'User not found']);
+                exit();
+            }
+        
+            if (!isset($_POST['moodDescription']) || empty(trim($_POST['moodDescription']))) {
+                echo json_encode(['success' => false, 'message' => 'Mood description is required']);
+                exit();
+            }
+        
+            $moodDescription = htmlspecialchars(trim($_POST['moodDescription'])); 
+
+            $sql = "INSERT INTO mood_tracking (user_id, mood_description) VALUES ('$userId', '$moodDescription')";
+        
+            if ($conn->query($sql)) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => $conn->error]);
+            }
+        
+            exit();
+        }
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'trackAssessment') {
+            // Ensure $usersID contains the user info
+            if ($usersID) {
+                $userId = $usersID['Id'];
+            } else {
+                echo json_encode(['success' => false, 'message' => 'User not found']);
+                exit();
+            }
+
+            // Collect form data (stress, happiness, anxiety, energy, sleep)
+            $stress = $_POST['stress'];
+            $happiness = $_POST['happiness'];
+            $anxiety = $_POST['anxiety'];
+            $energy = $_POST['energy'];
+            $sleep = $_POST['sleep'];
+
+            // Prepare SQL to insert into self_assessment table
+            $sql = "INSERT INTO self_assessment (user_id, stress_level, happiness_level, anxiety_level, energy_level, sleep_quality) 
+                    VALUES ('$userId', '$stress', '$happiness', '$anxiety', '$energy', '$sleep')";
+
+            // Execute the query
+            if ($conn->query($sql)) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => $conn->error]);
+            }
+
+            exit();
+        }
+ 
+
+
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'saveJournal') {
+        
+        if ($usersID) {
+            $userId = $usersID['Id'];
+        } else {
+            echo json_encode(['success' => false, 'message' => 'User not found']);
+            exit();
+        }
+
+        // Validate input
+        if (!isset($_POST['journalTitle']) || empty(trim($_POST['journalTitle']))) {
+            echo json_encode(['success' => false, 'message' => 'Journal title is required']);
+            exit();
+        }
+        if (!isset($_POST['journalContent']) || empty(trim($_POST['journalContent']))) {
+            echo json_encode(['success' => false, 'message' => 'Journal content is required']);
+            exit();
+        }
+
+        // Get journal title and content
+        $journalTitle = htmlspecialchars(trim($_POST['journalTitle'])); // Prevent XSS attacks
+        $journalContent = htmlspecialchars(trim($_POST['journalContent'])); // Prevent XSS attacks
+
+        // Direct SQL Query (Without Prepared Statements)
+        $sql = "INSERT INTO journals (user_id, title, content) VALUES ('$userId', '$journalTitle', '$journalContent')";
+
+        if ($conn->query($sql)) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => $conn->error]);
+        }
+
         exit();
     }
 ?>
@@ -92,9 +201,28 @@
     </header>
 
     <main>
+       <!-- section will be visible if there is  a notificaion which is in unread mode and in the section there will be a button mark ase read -->
+       <section class="user-dashboard">
+            <div class="dashboard-content">
+                <h1>Welcome, <span class="username"><?php echo $usersID['Name']; ?></span>!</h1>
+                <?php
+                    //check if there is any unread notification
+                    //SELECT `id`, `user_id`, `message`, `is_read`, `created_at` FROM `notifications`
+                    $notificationQuery = "SELECT * FROM notifications WHERE user_id = {$usersID['Id']} AND is_read = '0'";
+                    $result = $conn->query($notificationQuery);
+                    if ($result->num_rows > 0) {
+                        echo "<p>You have a new notification</p>";
+                        echo "<button class='btn-primary' onclick='openNotificationModal()'>Show</button>";
+                    }
+                    else {
+                        echo "<p>No new notifications</p>";
+                    }
+                ?>
+            </div>
+        </section>
         <section class="user-dashboard">
             <div class="dashboard-content">
-                <h1>Welcome Back, <span class="username"><?php echo $usersID['Name']; ?></span>!</h1>
+                <h1>Journal</h1>
                 <p>Your mental wellness journey starts here. Keep track of your thoughts and emotions.</p>
                 <button class="btn-primary" onclick="openJournalModal()">Create Journal</button>
             </div>
@@ -136,14 +264,34 @@
             </div>
         </section>
     </main>
+    <div id="notificationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeNotificationModal()">X</span>
+            <h2>Notifications</h2>
+            <?php
+                $notificationQuery = "SELECT * FROM notifications WHERE user_id = {$usersID['Id']} AND is_read = '0'";
+                $result = $conn->query($notificationQuery);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<p>{$row['message']}</p>";
+                        
+                        echo '<form class="form" id="notificationTrack">
+                            <input type="hidden" name="notification_id" value="'.$row['id'].'">
+                            <button type="submit" class="btn-primary">Mark as read</button>
+                        </form>';
+                    }
+                }
+            ?>
+        </div>
+    </div>
 
     <div id="journalModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeJournalModal()">X</span>
             <h2>Create a New Journal Entry</h2>
-            <form class="form">
-                <input type="text" placeholder="Journal Title" required>
-                <textarea placeholder="Write your thoughts..." required></textarea>
+            <form class="form" id="journalForm">
+                <input type="text" id="journalTitle" name="journalTitle" placeholder="Journal Title" required>
+                <textarea id="journalContent" name="journalContent" placeholder="Write your thoughts..." required></textarea>
                 <button type="submit" class="btn-primary">Save Journal</button>
             </form>
         </div>
@@ -153,8 +301,9 @@
         <div class="modal-content">
             <span class="close" onclick="closeMoodModal()">X</span>
             <h2>Track Your Mood</h2>
-            <form class="form">
-                <input type="text" placeholder="Mood Description" required>
+
+            <form class="form" id="moodTrack">
+                <input type="text" id="moodDescription" name="moodDescription" placeholder="Mood Description" required>
                 <button type="submit" class="btn-primary">Save Mood</button>
             </form>
         </div>
@@ -260,7 +409,7 @@
                     $consultantQuery = "SELECT Id, Name FROM users WHERE Role = 'consultant'";
                     $result = $conn->query($consultantQuery);
                     while ($row = $result->fetch_assoc()) {
-                        echo "<option value='{$row['Id']}'>{$row['Name']}</option>";
+                        echo "<option value='{$row['Id']}'> {$row['Name']}</option>";
                     }
                     ?>
                 </select>
@@ -288,6 +437,12 @@
     </footer>
 
     <script>
+        function openNotificationModal() {
+            document.getElementById("notificationModal").style.display = "block";
+        }
+        function closeNotificationModal() {
+            document.getElementById("notificationModal").style.display = "none";
+        }
         function openJournalModal() {
             document.getElementById("journalModal").style.display = "block";
         }
@@ -312,6 +467,31 @@
         function closeAppointmentModal() {
             document.getElementById("appointmentModal").style.display = "none";
         }
+
+        
+        document.getElementById("notificationTrack").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let formData = new FormData(this);
+            formData.append("action", "trackNotification");
+
+            fetch("UserPage.php", { 
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data); 
+                if (data.success) {
+                    alert("Mood tracked successfully!");
+                    closeMoodModal();
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => console.error("Fetch Error:", error));
+        });
+
         document.getElementById("appointmentForm").addEventListener("submit", function (event) {
             event.preventDefault();
 
@@ -333,6 +513,82 @@
             })
             .catch(error => console.error("Error:", error));
         });
+
+        document.getElementById("moodTrack").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let formData = new FormData(this);
+            formData.append("action", "trackMood");
+
+            fetch("UserPage.php", { 
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data); 
+                if (data.success) {
+                    alert("Mood tracked successfully!");
+                    document.getElementById("moodTrack").reset(); 
+                    closeMoodModal();
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => console.error("Fetch Error:", error));
+        });
+
+    document.getElementById("journalForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+        let formData = new FormData(this);
+        formData.append("action", "saveJournal");
+
+        fetch("UserPage.php", { 
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Debugging: Log response to see errors
+            if (data.success) {
+                alert("Journal entry saved successfully!");
+                document.getElementById("journalForm").reset(); // Clear form after success
+                closeJournalModal();
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => console.error("Fetch Error:", error));
+    });
+
+    document.getElementById("assessmentModal").querySelector(".form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+        // Collect form data (including the radio button values)
+        let formData = new FormData(this);
+        formData.append("action", "trackAssessment"); // Ensure correct action name
+
+        // Make the AJAX request
+        fetch("UserPage.php", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Log the response for debugging
+            if (data.success) {
+                alert("Assessment saved successfully!");
+                closeAssessmentModal(); // Assuming a function to close the modal
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => console.error("Fetch Error:", error));
+    });
+
+
+
     </script>
 </body>
 </html>
